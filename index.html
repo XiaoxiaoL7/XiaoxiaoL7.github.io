@@ -38,12 +38,10 @@ nav {
 
 /* HERO */
 .hero { padding: 5rem 2.5rem 4rem; position: relative; overflow: hidden; }
-.hero-eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--hint); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 10px; }
+.hero-eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--hint); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 14px; }
 .hero-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 0.5px; background: var(--border); }
-.hero-author { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
-.hero-avatar-sm { width: 64px; height: 64px; border-radius: 50%; border: 1.5px solid rgba(184,247,36,0.45); overflow: hidden; flex-shrink: 0; background: #1a1a1a; }
+.hero-avatar-sm { width: 72px; height: 72px; border-radius: 50%; border: 1.5px solid rgba(184,247,36,0.45); overflow: hidden; flex-shrink: 0; background: #1a1a1a; }
 .hero-avatar-sm img { width: 100%; height: 100%; object-fit: cover; object-position: center 10%; display: block; }
-.hero-author-name { font-size: 12px; color: var(--hint); letter-spacing: .03em; }
 .hero-name { font-size: clamp(52px, 8vw, 80px); font-weight: 600; line-height: .92; letter-spacing: -3px; margin-bottom: 2rem; }
 .hero-name .accent { color: var(--accent); }
 .hero-desc { font-size: 15px; color: var(--muted); max-width: 440px; line-height: 1.75; margin-bottom: 3rem; font-weight: 300; }
@@ -136,12 +134,11 @@ footer p { font-size: 11px; color: var(--hint); }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"><canvas id="globe-canvas" width="640" height="640"></canvas></div>
-  <div class="hero-eyebrow">Business & Data Analyst</div>
-  <h1 class="hero-name">Xiaoling<br><span class="accent">Li.</span></h1>
-  <div class="hero-author">
+  <div class="hero-eyebrow">
     <div class="hero-avatar-sm"><img src="./avatar.jpg" alt="Xiaoling Li"></div>
-    <span class="hero-author-name">Xiaoling Li</span>
+    Business & Data Analyst
   </div>
+  <h1 class="hero-name">Xiaoling<br><span class="accent">Li.</span></h1>
   <p class="hero-desc">I turn messy business data and processes into clear insights — using financial analysis, process mining, BI dashboards and predictive modelling.</p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-val">4</div><div class="stat-label">Projects</div></div>
