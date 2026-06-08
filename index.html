@@ -90,6 +90,8 @@ nav {
 /* CONTACT */
 .contact-section { padding: 0 2.5rem 5rem; }
 .contact-box { border: 0.5px solid var(--border); border-radius: 12px; padding: 3rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+.contact-photo { width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 1.5px solid rgba(184,247,36,0.35); flex-shrink: 0; }
+.contact-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 10%; display: block; }
 .contact-left h2 { font-size: 28px; font-weight: 600; letter-spacing: -1px; margin-bottom: .5rem; }
 .contact-left p { font-size: 13px; color: var(--muted); max-width: 360px; line-height: 1.7; }
 .contact-links { display: flex; flex-direction: column; gap: 10px; }
@@ -134,10 +136,7 @@ footer p { font-size: 11px; color: var(--hint); }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"><canvas id="globe-canvas" width="640" height="640"></canvas></div>
-  <div class="hero-eyebrow">
-    <div class="hero-avatar-sm"><img src="./avatar.jpg" alt="Xiaoling Li"></div>
-    Business & Data Analyst
-  </div>
+  <div class="hero-eyebrow">Business & Data Analyst</div>
   <h1 class="hero-name">Xiaoling<br><span class="accent">Li.</span></h1>
   <p class="hero-desc">I turn messy business data and processes into clear insights — using financial analysis, process mining, BI dashboards and predictive modelling.</p>
   <div class="hero-stats">
@@ -268,6 +267,7 @@ footer p { font-size: 11px; color: var(--hint); }
 <section class="contact-section" id="contact">
   <div class="section-header"><span class="section-label">Contact</span></div>
   <div class="contact-box fade-in">
+    <div class="contact-photo"><img src="./avatar.jpg" alt="Xiaoling Li"></div>
     <div class="contact-left">
       <h2>Let's work<br>together.</h2>
       <p>Open to analyst roles in data, finance and business analysis. Based in Belgium / Netherlands — available immediately. Open to Germany.</p>
