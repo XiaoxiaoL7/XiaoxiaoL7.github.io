@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xiaoling Li — Data & Finance Analyst</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1b35;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --blue-mid: #378ADD;
+    --green: #1D9E75;
+    --green-light: #EAF3DE;
+    --purple-light: #EEEDFE;
+    --purple: #534AB7;
+    --text: #1a1a1a;
+    --text-muted: #666;
+    --text-hint: #999;
+    --border: #e8e8e8;
+    --bg: #f9f9f7;
+    --white: #ffffff;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+    z-index: 100;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+  }
+  .nav-name { font-size: 14px; font-weight: 500; color: var(--text); }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* HERO */
+  .hero {
+    background: var(--white);
+    border-bottom: 0.5px solid var(--border);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: -.5px;
+    margin-bottom: .5rem;
+  }
+  .hero .tagline {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto 1.75rem;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 2rem; }
+  .chip {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: var(--white);
+    color: var(--text-muted);
+  }
+  .chip.hi { background: var(--blue-light); color: var(--blue); border-color: #B5D4F4; }
+  .hero-btns { display: flex; gap: 10px; justify-content: center; }
+  .btn-primary {
+    padding: 9px 22px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .btn-primary:hover { background: #1a2f55; }
+  .btn-secondary {
+    padding: 9px 22px;
+    background: transparent;
+    color: var(--text);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color .15s;
+  }
+  .btn-secondary:hover { border-color: #aaa; }
+
+  /* SECTIONS */
+  .section { max-width: 860px; margin: 0 auto; padding: 3.5rem 2rem; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    margin-bottom: 1.5rem;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+  .project-card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: box-shadow .15s, transform .15s;
+  }
+  .project-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transform: translateY(-2px);
+  }
+  .proj-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .badge-green { background: var(--green-light); color: #1D6A52; }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .project-card h3 { font-size: 15px; font-weight: 500; margin-bottom: .5rem; }
+  .project-card p { font-size: 13px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+  .chart-wrap { position: relative; height: 140px; margin-top: .75rem; }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+  .tech-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--text-muted);
+    border: 0.5px solid var(--border);
+  }
+  .process-flow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .pf-step {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .pf-arrow { color: var(--text-hint); font-size: 12px; }
+  .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 1rem; }
+  .stat-box {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: .6rem .5rem;
+    text-align: center;
+    border: 0.5px solid var(--border);
+  }
+  .stat-box .sv { font-size: 16px; font-weight: 500; }
+  .stat-box .sl { font-size: 10px; color: var(--text-hint); margin-top: 2px; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .skill-item {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: .75rem 1rem;
+  }
+  .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .skill-name { font-size: 13px; font-weight: 500; }
+  .skill-pct { font-size: 11px; color: var(--text-hint); }
+  .skill-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 2px; background: var(--blue-mid); transition: width 1s ease; }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-date { font-size: 12px; color: var(--text-hint); padding-top: 2px; }
+  .exp-role { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .exp-company { font-size: 13px; color: var(--text-muted); margin-bottom: .5rem; }
+  .exp-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    text-align: center;
+    color: #fff;
+  }
+  .contact-box h2 { font-size: 22px; font-weight: 500; margin-bottom: .5rem; }
+  .contact-box p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 1.75rem; max-width: 440px; margin-left: auto; margin-right: auto; }
+  .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .contact-link {
+    padding: 9px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    text-decoration: none;
+    border: 0.5px solid rgba(255,255,255,0.2);
+    color: #fff;
+    transition: background .15s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.1); }
+  .contact-link.primary {
+    background: var(--blue-mid);
+    border-color: var(--blue-mid);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 12px;
+    color: var(--text-hint);
+    border-top: 0.5px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 26px; }
+    .exp-item { grid-template-columns: 1fr; gap: .25rem; }
+    .exp-date { padding-top: 0; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Xiaoling Li</span>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Xiaoling Li</h1>
+  <p class="tagline">Finance &amp; data analyst with banking background, food retail operations experience and hands-on skills in SQL, Python, Power BI and process analysis.</p>
+  <div class="chips">
+    <span class="chip hi">SQL</span>
+    <span class="chip hi">Python</span>
+    <span class="chip hi">Power BI</span>
+    <span class="chip hi">Excel</span>
+    <span class="chip">BPMN</span>
+    <span class="chip">Celonis</span>
+    <span class="chip">Financial analysis</span>
+    <span class="chip">Process mining</span>
+    <span class="chip">MSc Information Management</span>
+  </div>
+  <div class="hero-btns">
+    <a href="#contact" class="btn-primary">Get in touch</a>
+    <a href="#projects" class="btn-secondary">See my work</a>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <p class="section-label">Featured projects</p>
+  <div class="projects-grid">
+
+    <!-- Project 1: Financial Analysis -->
+    <div class="project-card">
+      <span class="proj-badge badge-green">Financial analytics</span>
+      <h3>Revenue &amp; margin analysis</h3>
+      <p>Multi-location P&amp;L tracking, cost driver analysis and pricing optimisation across a food retail business — resulting in a 13 percentage point gross margin improvement.</p>
+      <div class="chart-wrap">
+        <canvas id="chart-financial"></canvas>
+      </div>
+      <div class="tech-tags">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">SQL</span>
+        <span class="tech-tag">Excel</span>
+        <span class="tech-tag">Power BI</span>
+      </div>
+    </div>
+
+    <!-- Project 2: Process Mining -->
+    <div class="project-card">
+      <span class="proj-badge badge-blue">Process mining</span>
+      <h3>Business process analysis &amp; BPMN</h3>
+      <p>Applied Celonis process mining to real event log data. Performed variant analysis, throughput time analysis and resource workload analysis. Identified bottlenecks and modelled end-to-end workflows using BPMN.</p>
+      <div class="process-flow">
+        <span class="pf-step" style="background:#E6F1FB;color:#185FA5">Event log data</span>
+        <span class="pf-arrow">→</span>
+        <span class="pf-step" style="background:#EAF3DE;color:#1D6A52">Celonis mining</span>
+        <span class="pf-arrow">→</span>
+        <span class="pf-step" style="background:#EEEDFE;color:#534AB7">BPMN model</span>
+        <span class="pf-arrow">→</span>
+        <span class="pf-step" style="background:#f0f0f0;color:#555">Recommendations</span>
+      </div>
+      <div class="tech-tags" style="margin-top:1rem">
+        <span class="tech-tag">Celonis</span>
+        <span class="tech-tag">BPMN</span>
+        <span class="tech-tag">Process mining</span>
+        <span class="tech-tag">KU Leuven</span>
+      </div>
+    </div>
+
+    <!-- Project 3: MSc Thesis -->
+    <div class="project-card">
+      <span class="proj-badge badge-purple">MSc thesis</span>
+      <h3>Business performance prediction</h3>
+      <p>Applied NLP feature extraction and regression modelling to analyse unstructured news data and predict business performance indicators. Covered data collection, feature engineering and model interpretation.</p>
+      <div class="stat-row">
+        <div class="stat-box"><div class="sv">NLP</div><div class="sl">Method</div></div>
+        <div class="stat-box"><div class="sv">OLS</div><div class="sl">Model</div></div>
+        <div class="stat-box"><div class="sv" style="color:#1D9E75">Cum laude</div><div class="sl">Grade</div></div>
+      </div>
+      <div class="tech-tags" style="margin-top:1rem">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">NLP</span>
+        <span class="tech-tag">Regression</span>
+        <span class="tech-tag">KU Leuven</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills" style="padding-top:0">
+  <p class="section-label">Skills</p>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">SQL</span><span class="skill-pct">Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">Power BI</span><span class="skill-pct">Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">Excel</span><span class="skill-pct">Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">BPMN</span><span class="skill-pct">Proficient</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">Celonis</span><span class="skill-pct">Proficient</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">Financial analysis</span><span class="skill-pct">Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-header"><span class="skill-name">Process analysis</span><span class="skill-pct">Advanced</span></div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="padding-top:0">
+  <div class="contact-box">
+    <h2>Let's connect</h2>
+    <p>Open to analyst roles in data, finance and business analysis. Based in Belgium — available immediately.</p>
+    <div class="contact-links">
+      <a href="mailto:xiaoling.li.work@gmail.com" class="contact-link primary">xiaoling.li.work@gmail.com</a>
+      <a href="https://github.com/XiaoxiaoL7" class="contact-link" target="_blank">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Xiaoling Li · 2026 · Built with curiosity</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+  const quarters = ['Q1 2021','Q2','Q3','Q4','Q1 2022','Q2','Q3','Q4','Q1 2023','Q2'];
+  const revenue  = [78, 83, 88, 91, 95, 99, 104, 108, 113, 118];
+  const margin   = [29, 31, 33, 35, 36, 38, 39, 41, 42, 44];
+
+  new Chart(document.getElementById('chart-financial'), {
+    data: {
+      labels: quarters,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Revenue (indexed)',
+          data: revenue,
+          backgroundColor: 'rgba(55,138,221,0.12)',
+          borderColor: '#378ADD',
+          borderWidth: 1.5,
+          borderRadius: 3,
+          yAxisID: 'y'
+        },
+        {
+          type: 'line',
+          label: 'Gross margin %',
+          data: margin,
+          borderColor: '#1D9E75',
+          borderWidth: 2,
+          pointRadius: 2,
+          pointBackgroundColor: '#1D9E75',
+          tension: 0.4,
+          yAxisID: 'y2'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: { font: { size: 10 }, boxWidth: 10, padding: 8, color: '#999' }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.datasetIndex === 1
+              ? ' Margin: ' + ctx.raw + '%'
+              : ' Revenue: ' + ctx.raw
+          }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { color: '#aaa', font: { size: 9 } } },
+        y: {
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          ticks: { color: '#aaa', font: { size: 9 } },
+          title: { display: false }
+        },
+        y2: {
+          position: 'right',
+          grid: { display: false },
+          ticks: { color: '#1D9E75', font: { size: 9 }, callback: v => v + '%' }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
