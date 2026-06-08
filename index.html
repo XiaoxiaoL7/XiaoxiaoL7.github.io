@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Xiaoling Li — Data & Finance Analyst</title>
+<title>Xiaoling Li — Business & Data Analyst</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -78,12 +78,8 @@ nav {
 
 /* SKILLS */
 .skills-section { padding: 0 2.5rem 4rem; }
-.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 1.5rem; }
-.skill-cell { padding: 1.25rem 1.5rem; background: var(--bg); }
-.skill-name { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
-.skill-bar { height: 2px; background: rgba(255,255,255,0.06); border-radius: 1px; overflow: hidden; }
-.skill-fill { height: 100%; border-radius: 1px; background: var(--accent); transition: width 1.2s ease; }
-.skill-level { font-size: 10px; color: var(--hint); margin-top: 6px; text-transform: uppercase; letter-spacing: .06em; }
+.skills-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.5rem; }
+.skill-tag { font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 6px; background: rgba(255,255,255,0.04); border: 0.5px solid rgba(255,255,255,0.1); color: var(--muted); }
 
 /* CONTACT */
 .contact-section { padding: 0 2.5rem 5rem; }
@@ -132,12 +128,12 @@ footer p { font-size: 11px; color: var(--hint); }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"><canvas id="globe-canvas" width="640" height="640"></canvas></div>
-  <div class="hero-eyebrow">Data & Finance Analyst</div>
+  <div class="hero-eyebrow">Business & Data Analyst</div>
   <h1 class="hero-name">Xiaoling<br><span class="accent">Li.</span></h1>
-  <p class="hero-desc">I turn messy data into clear decisions — through financial analysis, process mining and predictive modelling.</p>
+  <p class="hero-desc">I turn messy business data and processes into clear insights — using financial analysis, process mining, BI dashboards and predictive modelling.</p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-val">4</div><div class="stat-label">Projects</div></div>
-    <div class="stat"><div class="stat-val">SQL</div><div class="stat-label">Python · BI</div></div>
+    <div class="stat"><div class="stat-val">Power BI</div><div class="stat-label">SQL · Python</div></div>
     <div class="stat"><div class="stat-val">MSc</div><div class="stat-label">Cum laude</div></div>
     <div class="stat"><div class="stat-val">1M+</div><div class="stat-label">Public reach</div></div>
   </div>
@@ -247,15 +243,17 @@ footer p { font-size: 11px; color: var(--hint); }
   <div class="section-header">
     <span class="section-label">Skills</span>
   </div>
-  <div class="skills-grid fade-in">
-    <div class="skill-cell"><div class="skill-name">SQL</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><div class="skill-level">Advanced</div></div>
-    <div class="skill-cell"><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div><div class="skill-level">Advanced</div></div>
-    <div class="skill-cell"><div class="skill-name">Power BI</div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div><div class="skill-level">Advanced</div></div>
-    <div class="skill-cell"><div class="skill-name">Excel</div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div><div class="skill-level">Advanced</div></div>
-    <div class="skill-cell"><div class="skill-name">Financial analysis</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><div class="skill-level">Advanced</div></div>
-    <div class="skill-cell"><div class="skill-name">BPMN</div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div><div class="skill-level">Proficient</div></div>
-    <div class="skill-cell"><div class="skill-name">Celonis</div><div class="skill-bar"><div class="skill-fill" style="width:66%"></div></div><div class="skill-level">Proficient</div></div>
-    <div class="skill-cell"><div class="skill-name">Statistical analysis</div><div class="skill-bar"><div class="skill-fill" style="width:74%"></div></div><div class="skill-level">Proficient</div></div>
+  <div class="skills-tags fade-in">
+    <span class="skill-tag">SQL</span>
+    <span class="skill-tag">Python</span>
+    <span class="skill-tag">Power BI</span>
+    <span class="skill-tag">Excel</span>
+    <span class="skill-tag">Financial analysis</span>
+    <span class="skill-tag">Business analysis</span>
+    <span class="skill-tag">Process mining</span>
+    <span class="skill-tag">BPMN</span>
+    <span class="skill-tag">Statistical analysis</span>
+    <span class="skill-tag">Data storytelling</span>
   </div>
 </section>
 
@@ -265,7 +263,7 @@ footer p { font-size: 11px; color: var(--hint); }
   <div class="contact-box fade-in">
     <div class="contact-left">
       <h2>Let's work<br>together.</h2>
-      <p>Open to analyst roles in data, finance and business analysis. Based in Belgium / Netherlands — available immediately.</p>
+      <p>Open to analyst roles in data, finance and business analysis. Based in Belgium / Netherlands — available immediately. Open to Germany.</p>
     </div>
     <div class="contact-links">
       <a href="mailto:xiaoling.li.work@gmail.com" class="contact-link primary">xiaoling.li.work@gmail.com</a>
