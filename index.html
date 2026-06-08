@@ -49,7 +49,7 @@ nav {
 .stat-val { font-size: 28px; font-weight: 600; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
 .stat-label { font-size: 10px; color: var(--hint); text-transform: uppercase; letter-spacing: .08em; }
 .hero-bg { position: absolute; top: 0; right: 0; width: 55%; height: 100%; pointer-events: none; display: flex; align-items: center; justify-content: center; }
-#globe-canvas { opacity: 0.55; }
+#globe-canvas { opacity: 0.70; }
 
 /* PROJECTS */
 .projects-section { padding: 0 2.5rem 4rem; }
@@ -343,8 +343,8 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
           first = false;
         } else { first = true; }
       }
-      ctx.strokeStyle = 'rgba(184,247,36,0.35)';
-      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = 'rgba(184,247,36,0.75)';
+      ctx.lineWidth = 1;
       ctx.stroke();
     }
 
@@ -362,8 +362,8 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
           first = false;
         } else { first = true; }
       }
-      ctx.strokeStyle = 'rgba(184,247,36,0.35)';
-      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = 'rgba(184,247,36,0.75)';
+      ctx.lineWidth = 1;
       ctx.stroke();
     }
 
