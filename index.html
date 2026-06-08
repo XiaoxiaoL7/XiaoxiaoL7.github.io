@@ -351,7 +351,7 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         } else { if (!first) { ctx.stroke(); ctx.beginPath(); } first = true; }
       }
       ctx.strokeStyle = `rgba(184,247,36,${(baseOpacity * 0.85).toFixed(2)})`;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 0.8;
       ctx.stroke();
     }
 
@@ -373,7 +373,7 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
       const pmid = project(0, 0, 0);
       const lineOpa = 0.6;
       ctx.strokeStyle = `rgba(184,247,36,${lineOpa})`;
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 0.8;
       ctx.stroke();
     }
 
@@ -393,9 +393,9 @@ document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
         ctx.arc(proj.sx, proj.sy, 4, 0, Math.PI*2);
         ctx.fillStyle = '#b8f724';
         ctx.fill();
-        ctx.fillStyle = 'rgba(184,247,36,0.9)';
-        ctx.font = '600 12px Inter, sans-serif';
-        ctx.fillText(label, proj.sx + 8, proj.sy - 5);
+        ctx.fillStyle = 'rgba(184,247,36,0.95)';
+        ctx.font = '600 15px Inter, sans-serif';
+        ctx.fillText(label, proj.sx + 10, proj.sy - 6);
       }
     });
 
