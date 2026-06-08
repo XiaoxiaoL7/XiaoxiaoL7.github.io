@@ -31,8 +31,8 @@ nav {
 }
 .nav-logo { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: -.3px; }
 .nav-links { display: flex; gap: 2rem; }
-.nav-links a { font-size: 12px; color: var(--hint); text-decoration: none; transition: color .15s; letter-spacing: .02em; }
-.nav-links a:hover { color: var(--muted); }
+.nav-links a { font-size: 12px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color .15s; letter-spacing: .02em; }
+.nav-links a:hover { color: var(--text); }
 .nav-avail { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(184,247,36,0.6); }
 .nav-avail::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 
@@ -48,7 +48,8 @@ nav {
 .stat:last-child { border-right: none; }
 .stat-val { font-size: 28px; font-weight: 600; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
 .stat-label { font-size: 10px; color: var(--hint); text-transform: uppercase; letter-spacing: .08em; }
-.hero-bg { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse at 70% 40%, rgba(184,247,36,0.04) 0%, transparent 65%); pointer-events: none; }
+.hero-bg { position: absolute; top: 0; right: 0; width: 55%; height: 100%; pointer-events: none; display: flex; align-items: center; justify-content: center; }
+#globe-canvas { opacity: 0.22; }
 
 /* PROJECTS */
 .projects-section { padding: 0 2.5rem 4rem; }
@@ -130,7 +131,7 @@ footer p { font-size: 11px; color: var(--hint); }
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg"><canvas id="globe-canvas" width="500" height="500"></canvas></div>
   <div class="hero-eyebrow">Data & Finance Analyst</div>
   <h1 class="hero-name">Xiaoling<br><span class="accent">Li.</span></h1>
   <p class="hero-desc">I turn messy data into clear decisions — through financial analysis, process mining and predictive modelling.</p>
@@ -138,7 +139,7 @@ footer p { font-size: 11px; color: var(--hint); }
     <div class="stat"><div class="stat-val">4</div><div class="stat-label">Projects</div></div>
     <div class="stat"><div class="stat-val">SQL</div><div class="stat-label">Python · BI</div></div>
     <div class="stat"><div class="stat-val">MSc</div><div class="stat-label">Cum laude</div></div>
-    <div class="stat"><div class="stat-val">10y</div><div class="stat-label">Experience</div></div>
+    <div class="stat"><div class="stat-val">1M+</div><div class="stat-label">Public reach</div></div>
   </div>
 </section>
 
@@ -283,6 +284,119 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// GLOBE
+(function() {
+  const canvas = document.getElementById('globe-canvas');
+  const ctx = canvas.getContext('2d');
+  const R = 200;
+  const cx = 250, cy = 250;
+  let angle = 0;
+
+  // Cities: [lat, lon, label]
+  const cities = [
+    [31.2, 121.5, 'Shanghai'],
+    [39.9, 116.4, 'Beijing'],
+    [14.6, 121.0, 'Manila'],
+    [50.9, 4.7, 'Leuven']
+  ];
+
+  function latLonToXYZ(lat, lon) {
+    const phi = (90 - lat) * Math.PI / 180;
+    const theta = lon * Math.PI / 180;
+    return {
+      x: Math.sin(phi) * Math.cos(theta),
+      y: Math.cos(phi),
+      z: Math.sin(phi) * Math.sin(theta)
+    };
+  }
+
+  function project(x, y, z, rot) {
+    // rotate around Y axis
+    const cosA = Math.cos(rot), sinA = Math.sin(rot);
+    const rx = x * cosA - z * sinA;
+    const rz = x * sinA + z * cosA;
+    return { sx: cx + rx * R, sy: cy - y * R, visible: rz > -0.1 };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, 500, 500);
+    const nLat = 9, nLon = 12;
+
+    // Latitude lines
+    for (let i = 1; i < nLat; i++) {
+      const lat = -90 + i * 180 / nLat;
+      const phi = (90 - lat) * Math.PI / 180;
+      const r2d = Math.sin(phi) * R;
+      const yy = cy - Math.cos(phi) * R;
+      ctx.beginPath();
+      let first = true;
+      for (let j = 0; j <= 64; j++) {
+        const lon = -180 + j * 360 / 64;
+        const theta = (lon * Math.PI / 180) + angle;
+        const px = cx + r2d * Math.cos(theta);
+        const py = yy;
+        // visibility: z = sin(phi)*sin(theta_orig), check rz
+        const sinTheta = Math.sin(lon * Math.PI / 180 + angle);
+        if (Math.sin(phi) * sinTheta > -0.1) {
+          first ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+          first = false;
+        } else { first = true; }
+      }
+      ctx.strokeStyle = 'rgba(184,247,36,0.35)';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+
+    // Longitude lines
+    for (let j = 0; j < nLon; j++) {
+      const lon = j * 360 / nLon;
+      ctx.beginPath();
+      let first = true;
+      for (let i = 0; i <= 64; i++) {
+        const lat = -90 + i * 180 / 64;
+        const p = latLonToXYZ(lat, lon);
+        const proj = project(p.x, p.y, p.z, angle);
+        if (proj.visible) {
+          first ? ctx.moveTo(proj.sx, proj.sy) : ctx.lineTo(proj.sx, proj.sy);
+          first = false;
+        } else { first = true; }
+      }
+      ctx.strokeStyle = 'rgba(184,247,36,0.35)';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+
+    // City dots
+    cities.forEach(([lat, lon, label]) => {
+      const p = latLonToXYZ(lat, lon);
+      const proj = project(p.x, p.y, p.z, angle);
+      if (proj.visible) {
+        // glow
+        const grad = ctx.createRadialGradient(proj.sx, proj.sy, 0, proj.sx, proj.sy, 10);
+        grad.addColorStop(0, 'rgba(184,247,36,0.9)');
+        grad.addColorStop(1, 'rgba(184,247,36,0)');
+        ctx.beginPath();
+        ctx.arc(proj.sx, proj.sy, 10, 0, Math.PI*2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        // dot
+        ctx.beginPath();
+        ctx.arc(proj.sx, proj.sy, 3, 0, Math.PI*2);
+        ctx.fillStyle = '#b8f724';
+        ctx.fill();
+        // label
+        ctx.fillStyle = 'rgba(184,247,36,0.85)';
+        ctx.font = '11px Inter, sans-serif';
+        ctx.fillText(label, proj.sx + 6, proj.sy - 4);
+      }
+    });
+
+    angle += 0.003;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 </body>
 </html>
