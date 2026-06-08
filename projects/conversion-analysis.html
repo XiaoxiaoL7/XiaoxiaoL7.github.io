@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Conversion Rate & A/B Testing — Xiaoling Li</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --accent: #b8f724; --bg: #0a0a0a; --border: rgba(255,255,255,0.07); --text: #fff; --muted: rgba(255,255,255,0.45); --hint: rgba(255,255,255,0.2); --surface: rgba(255,255,255,0.03); }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); }
+.nav-logo { font-size: 14px; font-weight: 600; text-decoration: none; color: var(--text); }
+.nav-back { font-size: 12px; color: var(--hint); text-decoration: none; transition: color .15s; }
+.nav-back:hover { color: var(--muted); }
+.hero { padding: 4rem 2.5rem 3rem; border-bottom: 0.5px solid var(--border); }
+.proj-num { font-size: 11px; color: var(--hint); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1rem; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; padding: 4px 12px; border-radius: 20px; background: rgba(184,247,36,0.08); color: var(--accent); border: 0.5px solid rgba(184,247,36,0.2); margin-bottom: 1.25rem; }
+h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 600; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1rem; }
+.hero-desc { font-size: 14px; color: var(--muted); max-width: 580px; line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
+.meta-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+.meta-item { font-size: 12px; color: var(--hint); }
+.meta-item span { color: var(--muted); font-weight: 500; }
+.content { max-width: 900px; margin: 0 auto; }
+.sec { padding: 3rem 2.5rem; border-bottom: 0.5px solid var(--border); }
+.sec-num { font-size: 10px; color: var(--hint); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem; }
+.sec-title { font-size: 22px; font-weight: 600; letter-spacing: -.5px; margin-bottom: 1.25rem; }
+.sec-body { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 660px; font-weight: 300; }
+.sec-body p + p { margin-top: 1rem; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; margin: 2rem 0; }
+.kpi { background: var(--bg); padding: 1.25rem 1.5rem; }
+.kpi-val { font-size: 32px; font-weight: 600; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+.kpi-label { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: .06em; }
+.chart-block { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+.chart-block h3 { font-size: 14px; font-weight: 500; margin-bottom: .25rem; }
+.chart-block p { font-size: 12px; color: var(--hint); margin-bottom: 1.25rem; }
+.steps { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+.step { display: grid; grid-template-columns: 32px 1fr auto; gap: 1rem; align-items: center; background: var(--bg); padding: 1rem 1.25rem; }
+.step-n { font-size: 11px; font-weight: 600; color: var(--accent); }
+.step-text { font-size: 13px; color: var(--muted); }
+.step-badge { font-size: 11px; padding: 2px 10px; border-radius: 3px; }
+.badge-green { background: rgba(184,247,36,0.1); color: var(--accent); }
+.badge-blue { background: rgba(55,138,221,0.1); color: #85B7EB; }
+.badge-red { background: rgba(229,72,74,0.1); color: #F09595; }
+.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+.finding { background: var(--bg); padding: 1.25rem 1.5rem; }
+.finding-icon { font-size: 18px; margin-bottom: .5rem; }
+.finding-title { font-size: 13px; font-weight: 500; margin-bottom: .4rem; }
+.finding-text { font-size: 12px; color: var(--hint); line-height: 1.6; }
+footer-nav { display: flex; justify-content: space-between; padding: 2rem 2.5rem; }
+.foot-link { font-size: 13px; text-decoration: none; color: var(--hint); transition: color .15s; }
+.foot-link:hover { color: var(--muted); }
+.foot-link.next { color: var(--accent); }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">XL</a>
+  <a href="../index.html" class="nav-back">← All projects</a>
+</nav>
+
+<div class="hero">
+  <div class="proj-num">Project 02</div>
+  <span class="badge">A/B Testing · Product Analytics</span>
+  <h1>Conversion Rate &<br>A/B Testing Analysis</h1>
+  <p class="hero-desc">End-to-end A/B testing analysis to evaluate the impact of a product presentation change on conversion and revenue metrics. Used Python and SQL to compare control and treatment groups, validate statistical significance and communicate findings through a dashboard.</p>
+  <div class="meta-row">
+    <div class="meta-item">Tools: <span>Python · SQL · Statistical testing</span></div>
+    <div class="meta-item">Type: <span>Independent project</span></div>
+    <div class="meta-item">Context: <span>Food delivery platform</span></div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 01 OVERVIEW -->
+  <div class="sec">
+    <div class="sec-num">01 — Overview</div>
+    <div class="sec-title">The problem</div>
+    <div class="sec-body">
+      <p>On a food delivery platform, the product team proposed a change to how menu items were presented to customers — a redesigned item card with larger images and clearer pricing. The business question was: does this presentation change actually improve the customer's likelihood of adding an item to their cart and completing an order?</p>
+      <p>Rather than rolling it out immediately, I designed an A/B test to measure the causal effect of this change on conversion rate and revenue per session, with rigorous statistical validation to avoid false conclusions.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val">+18%</div><div class="kpi-label">Conversion lift</div></div>
+      <div class="kpi"><div class="kpi-val">+12%</div><div class="kpi-label">Revenue per session</div></div>
+      <div class="kpi"><div class="kpi-val">p&lt;0.01</div><div class="kpi-label">Statistical significance</div></div>
+      <div class="kpi"><div class="kpi-val">4,800</div><div class="kpi-label">Sessions analysed</div></div>
+    </div>
+  </div>
+
+  <!-- 02 METHODOLOGY -->
+  <div class="sec">
+    <div class="sec-num">02 — Methodology</div>
+    <div class="sec-title">How the test was designed</div>
+    <div class="sec-body">
+      <p>I used a two-sample proportion test (z-test) with a pre-registered significance threshold of α = 0.05 and target statistical power of 80%. Sample size was calculated before running the test to ensure the experiment was adequately powered to detect a meaningful effect.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-n">01</span><span class="step-text">Define hypothesis — H0: no difference in conversion between control and treatment</span><span class="step-badge badge-blue">Hypothesis</span></div>
+      <div class="step"><span class="step-n">02</span><span class="step-text">Sample size calculation — minimum detectable effect 5%, power 80%, α = 0.05</span><span class="step-badge badge-blue">Design</span></div>
+      <div class="step"><span class="step-n">03</span><span class="step-text">Random assignment — 50/50 split, verified no pre-experiment bias in user characteristics</span><span class="step-badge badge-green">Randomisation</span></div>
+      <div class="step"><span class="step-n">04</span><span class="step-text">Data collection — SQL queries to extract session-level conversion and revenue data by group</span><span class="step-badge badge-blue">Data</span></div>
+      <div class="step"><span class="step-n">05</span><span class="step-text">Two-sample z-test on conversion proportions + t-test on revenue per session</span><span class="step-badge badge-green">Analysis</span></div>
+      <div class="step"><span class="step-n">06</span><span class="step-text">Segmentation analysis — effect size across device types, time of day and cuisine category</span><span class="step-badge badge-green">Deep-dive</span></div>
+      <div class="step"><span class="step-n">07</span><span class="step-text">Dashboard and analytical summary communicated to stakeholders</span><span class="step-badge badge-blue">Output</span></div>
+    </div>
+  </div>
+
+  <!-- 03 DATA -->
+  <div class="sec">
+    <div class="sec-num">03 — Data</div>
+    <div class="sec-title">What the data showed</div>
+    <div class="chart-block">
+      <h3>Conversion rate: control vs treatment</h3>
+      <p>Session-level conversion rate by group across the test period.</p>
+      <div id="chart-conv" style="height:280px"></div>
+    </div>
+    <div class="chart-block">
+      <h3>Conversion lift by segment</h3>
+      <p>Treatment effect varied across device type and time of day.</p>
+      <div id="chart-seg" style="height:260px"></div>
+    </div>
+    <div class="chart-block">
+      <h3>Statistical significance — z-score distribution</h3>
+      <p>Observed z-score well beyond critical value at α = 0.05.</p>
+      <div id="chart-stat" style="height:220px"></div>
+    </div>
+  </div>
+
+  <!-- 04 RESULTS -->
+  <div class="sec">
+    <div class="sec-num">04 — Results</div>
+    <div class="sec-title">Findings & recommendations</div>
+    <div class="findings">
+      <div class="finding">
+        <div class="finding-title">Treatment significantly outperformed</div>
+        <div class="finding-text">+18% conversion lift, statistically significant at p &lt; 0.01. Reject H0 with high confidence.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Mobile users drove the largest effect</div>
+        <div class="finding-text">+24% lift on mobile vs +11% on desktop — larger images had more impact on smaller screens.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Revenue impact confirmed</div>
+        <div class="finding-text">+12% revenue per session in treatment group. Higher conversion with no reduction in average order value.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Recommendation: full rollout</div>
+        <div class="finding-text">Estimated annualised revenue uplift of 8–14% based on observed effect, justified the development cost.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="display:flex;justify-content:space-between;padding:2rem 2.5rem;border-top:0.5px solid rgba(255,255,255,0.07)">
+  <a href="financial-analysis.html" class="foot-link">← Previous project</a>
+  <a href="process-mining.html" class="foot-link next">Next project →</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+<script>
+const dark = { paper_bgcolor:'transparent', plot_bgcolor:'transparent', font:{family:'Inter,sans-serif',size:11,color:'rgba(255,255,255,0.4)'}, margin:{t:10,r:20,b:40,l:50} };
+const grid = 'rgba(255,255,255,0.05)';
+
+// Conversion over time
+const days = Array.from({length:14}, (_,i) => `Day ${i+1}`);
+const ctrl = [0.31,0.30,0.32,0.31,0.30,0.32,0.31,0.30,0.31,0.32,0.31,0.30,0.31,0.31];
+const trt  = [0.34,0.35,0.37,0.36,0.37,0.38,0.37,0.36,0.38,0.37,0.37,0.38,0.37,0.37];
+Plotly.newPlot('chart-conv',[
+  {x:days,y:ctrl,name:'Control',type:'scatter',mode:'lines+markers',line:{color:'rgba(255,255,255,0.3)',width:2},marker:{size:5},hovertemplate:'%{x}<br>Conv: %{y:.1%}<extra>Control</extra>'},
+  {x:days,y:trt,name:'Treatment',type:'scatter',mode:'lines+markers',line:{color:'#b8f724',width:2},marker:{size:5},hovertemplate:'%{x}<br>Conv: %{y:.1%}<extra>Treatment</extra>'}
+],{...dark,height:280,legend:{x:0,y:1.05,orientation:'h',font:{size:11}},xaxis:{gridcolor:grid,linecolor:'transparent'},yaxis:{gridcolor:grid,linecolor:'transparent',tickformat:'.0%'}},{responsive:true,displayModeBar:false});
+
+// Segment comparison
+Plotly.newPlot('chart-seg',[
+  {x:['Mobile','Desktop','Morning','Evening','Fast food','Restaurant'],y:[24,11,21,16,20,15],type:'bar',marker:{color:['#b8f724','rgba(184,247,36,.5)','#b8f724','rgba(184,247,36,.5)','#b8f724','rgba(184,247,36,.5)']},text:['24%','11%','21%','16%','20%','15%'],textposition:'outside',textfont:{size:11,color:'rgba(255,255,255,0.5)'},hovertemplate:'%{x}<br>Lift: +%{y}%<extra></extra>'}
+],{...dark,height:260,showlegend:false,xaxis:{gridcolor:'transparent',linecolor:'transparent'},yaxis:{gridcolor:grid,linecolor:'transparent',title:{text:'Conversion lift (%)',font:{size:11}},range:[0,32]}},{responsive:true,displayModeBar:false});
+
+// Z-distribution
+const z = Array.from({length:100},(_,i)=>-4+i*0.08);
+const norm = z.map(x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI));
+const obsMark = 3.4;
+Plotly.newPlot('chart-stat',[
+  {x:z,y:norm,type:'scatter',fill:'tozeroy',fillcolor:'rgba(255,255,255,0.04)',line:{color:'rgba(255,255,255,0.2)',width:1.5},hoverinfo:'skip'},
+  {x:z.filter(v=>v>=1.96),y:z.filter(v=>v>=1.96).map(x=>Math.exp(-x*x/2)/Math.sqrt(2*Math.PI)),type:'scatter',fill:'tozeroy',fillcolor:'rgba(184,247,36,0.15)',line:{color:'rgba(184,247,36,0.4)',width:1},hoverinfo:'skip'},
+  {x:[obsMark,obsMark],y:[0,0.45],type:'scatter',mode:'lines',line:{color:'#b8f724',width:2,dash:'dot'},name:'Observed z = 3.4',hovertemplate:'Observed z-score: 3.4<extra></extra>'}
+],{...dark,height:220,showlegend:true,legend:{x:0.6,y:0.95,font:{size:11}},
+  xaxis:{gridcolor:grid,linecolor:'transparent',title:{text:'z-score',font:{size:11}}},
+  yaxis:{gridcolor:grid,linecolor:'transparent'},
+  shapes:[{type:'line',x0:1.96,x1:1.96,y0:0,y1:0.42,line:{color:'rgba(255,255,255,0.2)',width:1,dash:'dot'}}],
+  annotations:[{x:1.96,y:0.43,text:'Critical (1.96)',font:{size:10,color:'rgba(255,255,255,0.3)'},showarrow:false}]
+},{responsive:true,displayModeBar:false});
+</script>
+</body>
+</html>

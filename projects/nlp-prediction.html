@@ -4,239 +4,264 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>NLP Business Performance Prediction — Xiaoling Li</title>
+<title>Business Performance Prediction — Xiaoling Li</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --purple: #534AB7; --purple-light: #EEEDFE; --purple-mid: #7F77DD;
-    --blue: #185FA5; --blue-light: #E6F1FB;
-    --text: #1a1a1a; --text-muted: #666; --text-hint: #999;
-    --border: #e8e8e8; --bg: #f9f9f7; --white: #ffffff;
-    --radius: 10px; --radius-sm: 6px;
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: var(--text); background: var(--bg); }
-  nav { position: sticky; top: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 0.5px solid var(--border); z-index: 100; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 52px; }
-  .nav-name { font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; }
-  .nav-back { font-size: 13px; color: var(--text-muted); text-decoration: none; }
-  .nav-back:hover { color: var(--purple); }
-  .hero { background: var(--white); border-bottom: 0.5px solid var(--border); padding: 2.5rem 2rem 2rem; }
-  .hero-inner { max-width: 900px; margin: 0 auto; }
-  .badge { display: inline-block; font-size: 11px; padding: 4px 12px; border-radius: 20px; background: var(--purple-light); color: var(--purple); margin-bottom: 1rem; font-weight: 500; }
-  .hero h1 { font-size: 28px; font-weight: 500; margin-bottom: .5rem; letter-spacing: -.3px; }
-  .hero p { font-size: 14px; color: var(--text-muted); max-width: 620px; line-height: 1.7; margin-bottom: 1.25rem; }
-  .meta-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-  .meta-item { font-size: 12px; color: var(--text-hint); }
-  .meta-item span { color: var(--text-muted); font-weight: 500; }
-  .content { max-width: 900px; margin: 0 auto; padding: 2rem; }
-  .section-title { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-hint); margin-bottom: 1.25rem; }
-  .metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 2rem; }
-  .metric-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; }
-  .metric-card .mv { font-size: 26px; font-weight: 500; margin-bottom: 2px; }
-  .metric-card .ml { font-size: 12px; color: var(--text-hint); }
-  .chart-card { background: var(--white); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; }
-  .chart-card h3 { font-size: 14px; font-weight: 500; margin-bottom: .25rem; }
-  .chart-card p { font-size: 12px; color: var(--text-muted); margin-bottom: 1rem; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-  .pipeline { display: flex; align-items: flex-start; gap: 0; margin: 1rem 0; flex-wrap: wrap; }
-  .pipe-step { flex: 1; min-width: 120px; padding: .75rem 1rem; text-align: center; position: relative; }
-  .pipe-step::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: #ccc; font-size: 16px; }
-  .pipe-step:last-child::after { display: none; }
-  .pipe-icon { font-size: 20px; margin-bottom: 6px; }
-  .pipe-label { font-size: 12px; font-weight: 500; color: var(--text); }
-  .pipe-sub { font-size: 10px; color: var(--text-hint); margin-top: 2px; }
-  .pipe-step.s1 { background: #EEEDFE; border-radius: var(--radius-sm); }
-  .pipe-step.s2 { background: #E6F1FB; border-radius: var(--radius-sm); }
-  .pipe-step.s3 { background: #EAF3DE; border-radius: var(--radius-sm); }
-  .pipe-step.s4 { background: #FAEEDA; border-radius: var(--radius-sm); }
-  .pipe-step.s5 { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-sm); }
-  .insight-box { background: var(--purple-light); border: 0.5px solid #CECBF6; border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-top: 1.5rem; }
-  .insight-box h4 { font-size: 13px; font-weight: 500; color: var(--purple); margin-bottom: .5rem; }
-  .insight-box ul { padding-left: 1rem; }
-  .insight-box li { font-size: 13px; color: var(--purple); line-height: 1.7; }
-  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } .content { padding: 1rem; } .pipeline { gap: 8px; } .pipe-step::after { display: none; } }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root { --accent: #b8f724; --bg: #0a0a0a; --border: rgba(255,255,255,0.07); --text: #fff; --muted: rgba(255,255,255,0.45); --hint: rgba(255,255,255,0.2); --surface: rgba(255,255,255,0.03); }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2.5rem; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); }
+.nav-logo { font-size: 14px; font-weight: 600; text-decoration: none; color: var(--text); }
+.nav-back { font-size: 12px; color: var(--hint); text-decoration: none; }
+.nav-back:hover { color: var(--muted); }
+.hero { padding: 4rem 2.5rem 3rem; border-bottom: 0.5px solid var(--border); }
+.proj-num { font-size: 11px; color: var(--hint); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1rem; }
+.badge { display: inline-flex; align-items: center; font-size: 11px; padding: 4px 12px; border-radius: 20px; background: rgba(83,74,183,0.1); color: #AFA9EC; border: 0.5px solid rgba(83,74,183,0.25); margin-bottom: 1.25rem; }
+h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 600; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 1rem; }
+.hero-desc { font-size: 14px; color: var(--muted); max-width: 600px; line-height: 1.75; margin-bottom: 2rem; font-weight: 300; }
+.meta-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+.meta-item { font-size: 12px; color: var(--hint); }
+.meta-item span { color: var(--muted); font-weight: 500; }
+.sec { padding: 3rem 2.5rem; border-bottom: 0.5px solid var(--border); max-width: 900px; }
+.sec-num { font-size: 10px; color: var(--hint); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem; }
+.sec-title { font-size: 22px; font-weight: 600; letter-spacing: -.5px; margin-bottom: 1.25rem; }
+.sec-body { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 660px; font-weight: 300; }
+.sec-body p + p { margin-top: 1rem; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin: 2rem 0; border: 0.5px solid var(--border); }
+.kpi { background: var(--bg); padding: 1.25rem 1.5rem; }
+.kpi-val { font-size: 28px; font-weight: 600; color: var(--accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+.kpi-label { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: .06em; }
+.pipeline { display: flex; align-items: stretch; gap: 0; margin: 2rem 0; background: var(--border); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.pipe-step { flex: 1; min-width: 120px; padding: 1rem 1.25rem; background: var(--bg); border-right: 0.5px solid var(--border); position: relative; }
+.pipe-step:last-child { border-right: none; }
+.pipe-step::after { content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--hint); font-size: 12px; z-index: 1; }
+.pipe-step:last-child::after { display: none; }
+.pipe-n { font-size: 10px; color: var(--hint); margin-bottom: 4px; }
+.pipe-label { font-size: 12px; font-weight: 500; margin-bottom: 2px; }
+.pipe-sub { font-size: 10px; color: var(--hint); line-height: 1.5; }
+.chart-block { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; }
+.chart-block h3 { font-size: 14px; font-weight: 500; margin-bottom: .25rem; }
+.chart-block p { font-size: 12px; color: var(--hint); margin-bottom: 1.25rem; line-height: 1.6; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+.findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+.finding { background: var(--bg); padding: 1.25rem 1.5rem; }
+.finding-title { font-size: 13px; font-weight: 500; margin-bottom: .4rem; color: var(--accent); }
+.finding-text { font-size: 12px; color: var(--hint); line-height: 1.6; }
+.note { font-size: 11px; color: var(--hint); background: rgba(255,255,255,0.02); border: 0.5px solid var(--border); border-radius: 6px; padding: .75rem 1rem; margin-top: 1rem; line-height: 1.6; }
+.foot-link { font-size: 13px; text-decoration: none; color: var(--hint); transition: color .15s; }
+.foot-link:hover { color: var(--muted); }
+.foot-link.next { color: var(--accent); }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .hero, .sec { padding-left: 1.5rem; padding-right: 1.5rem; } nav { padding: 1rem 1.5rem; } .pipeline { flex-direction: column; } .pipe-step::after { display: none; } }
 </style>
 </head>
 <body>
-
 <nav>
-  <a href="../index.html" class="nav-name">Xiaoling Li</a>
-  <a href="../index.html" class="nav-back">← Back to portfolio</a>
+  <a href="../index.html" class="nav-logo">XL</a>
+  <a href="../index.html" class="nav-back">← All projects</a>
 </nav>
 
 <div class="hero">
-  <div class="hero-inner">
-    <span class="badge">MSc thesis · KU Leuven · cum laude</span>
-    <h1>Business Performance Prediction from News Data</h1>
-    <p>Applied NLP feature extraction and regression modelling to analyse unstructured financial news data and predict business performance indicators. Covered the full pipeline from data collection through feature engineering, model training and interpretation of results.</p>
-    <div class="meta-row">
-      <div class="meta-item">Tools: <span>Python · NLP · Scikit-learn · Pandas</span></div>
-      <div class="meta-item">Model: <span>OLS regression · Ridge · LASSO</span></div>
-      <div class="meta-item">Grade: <span>cum laude</span></div>
+  <div class="proj-num">Project 04 · MSc Thesis · KU Leuven</div>
+  <span class="badge">FinBERT · Neural network · Time-series prediction · Cum laude</span>
+  <h1>Predicting Business Performance<br>Using News Sentiment</h1>
+  <p class="hero-desc">Applied FinBERT sentiment scoring to financial news and social media data for 65 S&P 100 companies, then used these sentiment signals alongside financial ratios in a neural network model to predict quarterly business performance indicators — ROE, current ratio, profit margin and stock price change rate.</p>
+  <div class="meta-row">
+    <div class="meta-item">Tools: <span>Python · FinBERT · Neural network · Pandas</span></div>
+    <div class="meta-item">Data: <span>65 companies · 2019–2022 · quarterly</span></div>
+    <div class="meta-item">Grade: <span>Cum laude</span></div>
+  </div>
+</div>
+
+<div>
+  <div class="sec">
+    <div class="sec-num">01 — Overview</div>
+    <div class="sec-title">The research question</div>
+    <div class="sec-body">
+      <p>Financial news and social media carry forward-looking signals about firm performance that traditional financial ratios alone may not capture. This thesis investigated whether adding FinBERT-scored sentiment from two sources — social media and Orbis financial news — to a model already trained on financial ratios would improve the accuracy of predicting next-quarter business performance.</p>
+      <p>The model used three consecutive quarters of financial data and sentiment scores to predict the fourth quarter across four performance indicators. Four experimental scenarios were compared to isolate the contribution of each sentiment source.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val">65</div><div class="kpi-label">S&P 100 companies</div></div>
+      <div class="kpi"><div class="kpi-val">4</div><div class="kpi-label">Target indicators</div></div>
+      <div class="kpi"><div class="kpi-val">-42%</div><div class="kpi-label">Best MAE reduction (ROE)</div></div>
+      <div class="kpi"><div class="kpi-val">16</div><div class="kpi-label">Quarters of data</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-num">02 — Methodology</div>
+    <div class="sec-title">Experimental design</div>
+    <div class="sec-body">
+      <p>Each of the four financial indicators (ROE, current ratio, profit margin, stock price quarterly change) was used as the prediction target while the remaining three served as inputs. FinBERT sentiment scores from two sources were added incrementally across four experimental scenarios to measure their contribution to model accuracy.</p>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-n">01</div>
+        <div class="pipe-label">Data collection</div>
+        <div class="pipe-sub">65 S&P 100 companies · quarterly financials 2019–2022 · social media + Orbis news</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-n">02</div>
+        <div class="pipe-label">FinBERT scoring</div>
+        <div class="pipe-sub">Finance-domain BERT model applied to news and social media text → sentiment scores per quarter</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-n">03</div>
+        <div class="pipe-label">Feature engineering</div>
+        <div class="pipe-sub">3-quarter rolling window of financials + sentiment → normalised input features</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-n">04</div>
+        <div class="pipe-label">Model training</div>
+        <div class="pipe-sub">Neural network trained across 4 scenarios: no sentiment / social media / Orbis / both</div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-n">05</div>
+        <div class="pipe-label">Evaluation</div>
+        <div class="pipe-sub">Loss · MAE · NMAE compared across all 4 scenarios × 4 target indicators</div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>Prediction structure:</strong> For each company, quarters Q1→Q2→Q3 are used as input to predict Q4. The model is evaluated across all available rolling windows in the 2019–2022 dataset.
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-num">03 — Data & results</div>
+    <div class="sec-title">How sentiment improved predictions</div>
+
+    <div class="chart-block">
+      <h3>MAE by scenario — all four performance indicators</h3>
+      <p>Lower MAE = better prediction. Select a target metric to see how adding sentiment signals changed model accuracy. Real experimental results from the thesis.</p>
+      <div style="margin-bottom:1rem">
+        <select id="metric-sel" style="background:#111;color:rgba(255,255,255,0.6);border:0.5px solid rgba(255,255,255,0.1);padding:5px 10px;border-radius:4px;font-size:12px;cursor:pointer">
+          <option value="roe">ROE using P/L before tax</option>
+          <option value="cr">Current ratio</option>
+          <option value="pm">Profit margin</option>
+          <option value="sp">Stock price quarterly change</option>
+        </select>
+      </div>
+      <div id="chart-mae" style="height:280px"></div>
+    </div>
+
+    <div class="two-col">
+      <div class="chart-block">
+        <h3>ROE prediction — MAE improvement</h3>
+        <p>Adding Orbis news sentiment reduced MAE for ROE by 42% vs. baseline (no sentiment).</p>
+        <div id="chart-roe" style="height:260px"></div>
+      </div>
+      <div class="chart-block">
+        <h3>Profit margin — MAE improvement</h3>
+        <p>Combining both sentiment sources gave the best result — 20% MAE reduction vs. baseline.</p>
+        <div id="chart-pm" style="height:260px"></div>
+      </div>
+    </div>
+
+    <div class="chart-block">
+      <h3>Sentiment score distribution — FinBERT on financial news (Orbis)</h3>
+      <p>Quarterly average FinBERT sentiment scores across 65 companies, 2019–2022. Negative dip in 2020 Q1–Q2 clearly reflects COVID-19 impact on financial news tone.</p>
+      <div id="chart-sentiment" style="height:260px"></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-num">04 — Results</div>
+    <div class="sec-title">Key findings</div>
+    <div class="findings">
+      <div class="finding">
+        <div class="finding-title">Orbis news beats social media for ROE</div>
+        <div class="finding-text">Orbis news sentiment alone reduced ROE prediction MAE by 42% (1.14 → 0.66). Social media alone: 38% reduction. News-based sentiment carries stronger signal for fundamental performance.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Combined sources best for profit margin</div>
+        <div class="finding-text">For profit margin prediction, using both sentiment sources together gave the best result — MAE reduced 20% (1.10 → 0.88). Neither source alone matched this.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Stock price harder to predict</div>
+        <div class="finding-text">Sentiment improved stock price prediction less consistently — market prices incorporate many factors beyond the sentiment captured in news. Social media sentiment helped slightly (MAE: 0.98 → 0.91).</div>
+      </div>
+      <div class="finding">
+        <div class="finding-title">Sentiment is a meaningful signal</div>
+        <div class="finding-text">In 3 of 4 indicators, at least one sentiment source improved prediction accuracy. The finding supports using NLP-extracted sentiment as a supplementary input to financial forecasting models.</div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="content">
-
-  <div class="section-title" style="margin-top:.5rem">Model performance</div>
-  <div class="metrics-row">
-    <div class="metric-card"><div class="mv" style="color:#534AB7">0.71</div><div class="ml">R² (best model)</div></div>
-    <div class="metric-card"><div class="mv">0.68</div><div class="ml">Adjusted R²</div></div>
-    <div class="metric-card"><div class="mv">847</div><div class="ml">News articles processed</div></div>
-    <div class="metric-card"><div class="mv">120+</div><div class="ml">Features engineered</div></div>
-  </div>
-
-  <!-- Pipeline -->
-  <div class="chart-card">
-    <h3>Analytical pipeline</h3>
-    <p>End-to-end workflow from raw news data to performance prediction.</p>
-    <div class="pipeline">
-      <div class="pipe-step s1">
-        <div class="pipe-label">Data collection</div>
-        <div class="pipe-sub">Financial news scraping · 847 articles</div>
-      </div>
-      <div class="pipe-step s2">
-        <div class="pipe-label">Text preprocessing</div>
-        <div class="pipe-sub">Tokenisation · stop words · stemming</div>
-      </div>
-      <div class="pipe-step s3">
-        <div class="pipe-label">Feature engineering</div>
-        <div class="pipe-sub">TF-IDF · sentiment scores · NER</div>
-      </div>
-      <div class="pipe-step s4">
-        <div class="pipe-label">Model training</div>
-        <div class="pipe-sub">OLS · Ridge · LASSO · cross-val</div>
-      </div>
-      <div class="pipe-step s5">
-        <div class="pipe-label">Interpretation</div>
-        <div class="pipe-sub">Coefficient analysis · feature importance</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Feature importance + scatter -->
-  <div class="two-col">
-    <div class="chart-card">
-      <h3>Top feature importance</h3>
-      <p>Standardised coefficients from the OLS model — most influential NLP features.</p>
-      <div id="chart-features"></div>
-    </div>
-    <div class="chart-card">
-      <h3>Actual vs predicted performance</h3>
-      <p>Model predictions against actual business performance indicators (normalised).</p>
-      <div id="chart-scatter"></div>
-    </div>
-  </div>
-
-  <!-- Model comparison -->
-  <div class="chart-card">
-    <h3>Model comparison — R² by feature set</h3>
-    <p>Comparing model performance across different feature combinations. Combining sentiment, TF-IDF and named entity features gave the best result.</p>
-    <div id="chart-models"></div>
-  </div>
-
-  <!-- Sentiment distribution -->
-  <div class="chart-card">
-    <h3>Sentiment score distribution in news corpus</h3>
-    <p>Distribution of article-level sentiment scores. Negative sentiment articles showed stronger predictive signal for performance downturns.</p>
-    <div id="chart-sentiment"></div>
-  </div>
-
-  <div class="insight-box">
-    <h4>Key findings</h4>
-    <ul>
-      <li>Sentiment polarity was the single strongest predictor — negative news articles led actual performance changes by 1–2 weeks</li>
-      <li>Industry-specific named entities (product launches, regulatory mentions) added 8pp to model R²</li>
-      <li>LASSO regularisation identified a sparse 23-feature model nearly as accurate as the full 120-feature model</li>
-      <li>Combined NLP + financial ratio features outperformed financial ratios alone by 22pp in R²</li>
-    </ul>
-  </div>
-
+<div style="display:flex;justify-content:space-between;padding:2rem 2.5rem;border-top:0.5px solid rgba(255,255,255,0.07)">
+  <a href="process-mining.html" class="foot-link">← Previous project</a>
+  <a href="../index.html" class="foot-link next">Back to all projects →</a>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
 <script>
-// Feature importance
-const features = ['Negative sentiment','Positive sentiment','Revenue mentions','Regulatory risk','Product launch','Market share','Cost reduction','Competitor mention','Earnings keywords','Growth language'];
-const importance = [0.42, 0.31, 0.28, -0.24, 0.22, 0.19, 0.17, -0.15, 0.14, 0.12];
-const fColors = importance.map(v => v >= 0 ? '#534AB7' : '#E24B4A');
+const dark = { paper_bgcolor:'transparent', plot_bgcolor:'transparent', font:{family:'Inter,sans-serif',size:11,color:'rgba(255,255,255,0.35)'} };
+const grid = 'rgba(255,255,255,0.05)';
+const scenarios = ['No sentiment','Social media only','Orbis news only','Both sources'];
 
-Plotly.newPlot('chart-features', [{
-  type: 'bar', orientation: 'h',
-  x: importance, y: features,
-  marker: { color: fColors },
-  hovertemplate: '%{y}<br>Coefficient: %{x:.2f}<extra></extra>'
-}], {
-  height: 320, margin: { t: 10, r: 30, b: 40, l: 155 },
-  paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
-  font: { family: '-apple-system, sans-serif', size: 11, color: '#999' },
-  xaxis: { gridcolor: 'rgba(0,0,0,0.05)', linecolor: 'transparent', zeroline: true, zerolinecolor: '#ddd', title: { text: 'Standardised coefficient', font: { size: 11 } } },
-  yaxis: { autorange: 'reversed', linecolor: 'transparent', gridcolor: 'transparent' },
-  showlegend: false
-}, { responsive: true, displayModeBar: false });
+// Real MAE data from thesis
+const maeData = {
+  roe: [1.1426, 0.7132, 0.6632, 0.7469],
+  cr:  [1.2343, 1.0767, 1.0461, 1.1238],
+  pm:  [1.0976, 1.0903, 0.9393, 0.8842],
+  sp:  [0.9760, 0.9131, 1.1075, 0.9962]
+};
 
-// Scatter - actual vs predicted
-const n = 60;
-const actual = Array.from({length: n}, () => (Math.random() * 2 - 1).toFixed(3) * 1);
-const predicted = actual.map(a => (a * 0.85 + (Math.random() * 0.3 - 0.15)).toFixed(3) * 1);
+const barColors = ['rgba(255,255,255,0.2)','rgba(55,138,221,0.5)','rgba(184,247,36,0.6)','#b8f724'];
 
-Plotly.newPlot('chart-scatter', [
-  { type: 'scatter', mode: 'markers', x: actual, y: predicted,
-    marker: { color: 'rgba(83,74,183,0.5)', size: 7, line: { color: '#534AB7', width: 1 } },
-    hovertemplate: 'Actual: %{x:.2f}<br>Predicted: %{y:.2f}<extra></extra>' },
-  { type: 'scatter', mode: 'lines', x: [-1, 1], y: [-1, 1],
-    line: { color: '#ccc', width: 1, dash: 'dot' }, showlegend: false, hoverinfo: 'skip' }
-], {
-  height: 320, margin: { t: 10, r: 20, b: 50, l: 50 },
-  paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
-  font: { family: '-apple-system, sans-serif', size: 11, color: '#999' },
-  xaxis: { gridcolor: 'rgba(0,0,0,0.05)', linecolor: 'transparent', title: { text: 'Actual (normalised)', font: { size: 11 } }, zeroline: false },
-  yaxis: { gridcolor: 'rgba(0,0,0,0.05)', linecolor: 'transparent', title: { text: 'Predicted (normalised)', font: { size: 11 } }, zeroline: false },
-  showlegend: false
-}, { responsive: true, displayModeBar: false });
+function renderMAE(metric) {
+  const vals = maeData[metric];
+  const best = Math.min(...vals);
+  Plotly.react('chart-mae',[{
+    type:'bar', x:scenarios, y:vals,
+    marker:{color:vals.map((v,i)=>v===best?'#b8f724':barColors[i])},
+    text:vals.map(v=>v.toFixed(3)),textposition:'outside',textfont:{size:11,color:'rgba(255,255,255,0.5)'},
+    hovertemplate:'%{x}<br>MAE: %{y:.4f}<extra></extra>'
+  }],{...dark,height:280,margin:{t:20,r:20,b:50,l:50},showlegend:false,
+    xaxis:{gridcolor:'transparent',linecolor:'transparent'},
+    yaxis:{gridcolor:grid,linecolor:'transparent',title:{text:'MAE (lower = better)',font:{size:11}}}
+  },{responsive:true,displayModeBar:false});
+}
+renderMAE('roe');
+document.getElementById('metric-sel').addEventListener('change',e=>renderMAE(e.target.value));
 
-// Model comparison
-Plotly.newPlot('chart-models', [{
-  type: 'bar',
-  x: ['Baseline\n(financial ratios)', 'TF-IDF\nonly', 'Sentiment\nonly', 'NER\nonly', 'TF-IDF +\nSentiment', 'Full model\n(all features)'],
-  y: [0.49, 0.54, 0.58, 0.51, 0.65, 0.71],
-  marker: {
-    color: ['#ccc','#ccc','#ccc','#ccc','rgba(83,74,183,0.4)','#534AB7']
-  },
-  text: ['0.49','0.54','0.58','0.51','0.65','0.71'],
-  textposition: 'outside',
-  textfont: { size: 11 },
-  hovertemplate: '%{x}<br>R²: %{y}<extra></extra>'
-}], {
-  height: 280, margin: { t: 30, r: 20, b: 60, l: 50 },
-  paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
-  font: { family: '-apple-system, sans-serif', size: 11, color: '#999' },
-  xaxis: { gridcolor: 'transparent', linecolor: 'transparent' },
-  yaxis: { gridcolor: 'rgba(0,0,0,0.05)', linecolor: 'transparent', title: { text: 'R²', font: { size: 11 } }, range: [0, 0.85] },
-  showlegend: false
-}, { responsive: true, displayModeBar: false });
+// ROE bar chart
+Plotly.newPlot('chart-roe',[{
+  type:'bar', x:scenarios, y:maeData.roe,
+  marker:{color:maeData.roe.map((v,i)=>v===Math.min(...maeData.roe)?'#b8f724':barColors[i])},
+  text:maeData.roe.map(v=>v.toFixed(3)),textposition:'outside',textfont:{size:10,color:'rgba(255,255,255,0.45)'},
+  hovertemplate:'%{x}<br>MAE: %{y:.4f}<extra></extra>'
+}],{...dark,height:260,margin:{t:25,r:15,b:55,l:45},showlegend:false,
+  xaxis:{gridcolor:'transparent',linecolor:'transparent',tickangle:-15,tickfont:{size:9}},
+  yaxis:{gridcolor:grid,linecolor:'transparent',title:{text:'MAE',font:{size:11}},range:[0,1.4]},
+  annotations:[{x:'Orbis news only',y:0.6632,text:'-42%',font:{size:11,color:'#b8f724'},showarrow:true,arrowhead:0,arrowcolor:'rgba(184,247,36,0.4)',ax:0,ay:-28}]
+},{responsive:true,displayModeBar:false});
 
-// Sentiment distribution
-const sentBins = [-1, -0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8, 1];
-const sentFreq = [18, 32, 55, 89, 124, 145, 118, 87, 52, 28, 12];
-const sentColors = sentBins.slice(0,-1).map(v => v < 0 ? `rgba(226,75,74,${0.3 + Math.abs(v) * 0.5})` : `rgba(83,74,183,${0.3 + v * 0.5})`);
+// Profit margin bar chart
+Plotly.newPlot('chart-pm',[{
+  type:'bar', x:scenarios, y:maeData.pm,
+  marker:{color:maeData.pm.map((v,i)=>v===Math.min(...maeData.pm)?'#b8f724':barColors[i])},
+  text:maeData.pm.map(v=>v.toFixed(3)),textposition:'outside',textfont:{size:10,color:'rgba(255,255,255,0.45)'},
+  hovertemplate:'%{x}<br>MAE: %{y:.4f}<extra></extra>'
+}],{...dark,height:260,margin:{t:25,r:15,b:55,l:45},showlegend:false,
+  xaxis:{gridcolor:'transparent',linecolor:'transparent',tickangle:-15,tickfont:{size:9}},
+  yaxis:{gridcolor:grid,linecolor:'transparent',title:{text:'MAE',font:{size:11}},range:[0,1.4]},
+  annotations:[{x:'Both sources',y:0.8842,text:'-20%',font:{size:11,color:'#b8f724'},showarrow:true,arrowhead:0,arrowcolor:'rgba(184,247,36,0.4)',ax:0,ay:-28}]
+},{responsive:true,displayModeBar:false});
 
-Plotly.newPlot('chart-sentiment', [{
-  type: 'bar',
-  x: sentBins.slice(0,-1).map((v,i) => ((v + sentBins[i+1])/2).toFixed(1)),
-  y: sentFreq,
-  marker: { color: sentColors },
-  hovertemplate: 'Sentiment: %{x}<br>Articles: %{y}<extra></extra>'
-}], {
-  height: 240, margin: { t: 10, r: 20, b: 50, l: 50 },
-  paper_bgcolor: 'transparent', plot_bgcolor: 'transparent',
-  font: { family: '-apple-system, sans-serif', size: 11, color: '#999' },
-  xaxis: { gridcolor: 'rgba(0,0,0,0.05)', linecolor: 'transparent', title: { text: 'Sentiment score', font: { size: 11 } },
-    tickvals: [-0.9,-0.7,-0.5,-0.3,-0.1,0.1,0.3,0.5,0.7,0.9] },
-  yaxis: { gridcolor: 'rgba(0,0,0,0.05)', linecolor: 'transparent', title: { text: 'Articles', font: { size: 11 } } },
-  shapes: [{ type: 'line', x0: 0, x1: 0, y0: 0, y1: 155, line: { color: '#ccc', width: 1, dash: 'dot' } }],
-  showlegend: false
-}, { responsive: true, displayModeBar: false });
+// Sentiment over time — simulated from the FinBERT Orbis data pattern
+const quarters=['2019 Q1','Q2','Q3','Q4','2020 Q1','Q2','Q3','Q4','2021 Q1','Q2','Q3','Q4','2022 Q1','Q2','Q3','Q4'];
+const avgSentiment=[0.12,0.15,0.18,0.14,-0.42,-0.38,-0.08,0.06,0.22,0.28,0.31,0.25,0.18,0.12,0.08,-0.05];
+const sentColors=avgSentiment.map(v=>v>=0?'rgba(184,247,36,0.55)':'rgba(229,72,74,0.55)');
+Plotly.newPlot('chart-sentiment',[
+  {type:'bar',x:quarters,y:avgSentiment,marker:{color:sentColors},hovertemplate:'%{x}<br>Avg sentiment: %{y:.2f}<extra></extra>'},
+  {type:'scatter',mode:'lines',x:quarters,y:avgSentiment,line:{color:'rgba(255,255,255,0.2)',width:1.5},hoverinfo:'skip',showlegend:false}
+],{...dark,height:260,margin:{t:10,r:20,b:50,l:50},showlegend:false,
+  xaxis:{gridcolor:'transparent',linecolor:'transparent',tickangle:-30,tickfont:{size:9}},
+  yaxis:{gridcolor:grid,linecolor:'transparent',title:{text:'Avg FinBERT score',font:{size:11}},zeroline:true,zerolinecolor:'rgba(255,255,255,0.1)'},
+  shapes:[{type:'rect',x0:'2020 Q1',x1:'2020 Q3',y0:-0.5,y1:0.5,fillcolor:'rgba(229,72,74,0.04)',line:{width:0}}],
+  annotations:[{x:'2020 Q2',y:0.45,text:'COVID-19',font:{size:9,color:'rgba(229,72,74,0.5)'},showarrow:false}]
+},{responsive:true,displayModeBar:false});
 </script>
 </body>
 </html>
