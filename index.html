@@ -78,10 +78,12 @@ nav {
 
 /* SKILLS */
 .skills-section { padding: 0 2.5rem 4rem; }
-.skills-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.5rem; }
-.skill-tag { font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 6px; background: rgba(184,247,36,0.06); border: 0.5px solid rgba(184,247,36,0.15); color: rgba(184,247,36,0.55); }
-.skill-tag.hi { background: rgba(184,247,36,0.12); border-color: rgba(184,247,36,0.35); color: rgba(184,247,36,0.9); }
-.skill-tag.mid { background: rgba(184,247,36,0.08); border-color: rgba(184,247,36,0.22); color: rgba(184,247,36,0.7); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 1.5rem; }
+.skill-cell { padding: 1.25rem 1.5rem; background: var(--bg); }
+.skill-name { font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+.skill-bar { height: 2px; background: rgba(255,255,255,0.06); border-radius: 1px; overflow: hidden; }
+.skill-fill { height: 100%; border-radius: 1px; background: var(--accent); transition: width 1.2s ease; }
+.skill-level { font-size: 10px; color: var(--hint); margin-top: 6px; text-transform: uppercase; letter-spacing: .06em; }
 
 /* CONTACT */
 .contact-section { padding: 0 2.5rem 5rem; }
@@ -245,17 +247,15 @@ footer p { font-size: 11px; color: var(--hint); }
   <div class="section-header">
     <span class="section-label">Skills</span>
   </div>
-  <div class="skills-tags fade-in">
-    <span class="skill-tag hi">SQL</span>
-    <span class="skill-tag hi">Python</span>
-    <span class="skill-tag hi">Power BI</span>
-    <span class="skill-tag hi">Excel</span>
-    <span class="skill-tag hi">Financial analysis</span>
-    <span class="skill-tag hi">Business analysis</span>
-    <span class="skill-tag mid">Process mining</span>
-    <span class="skill-tag mid">BPMN</span>
-    <span class="skill-tag mid">Statistical analysis</span>
-    <span class="skill-tag mid">Data storytelling</span>
+  <div class="skills-grid fade-in">
+    <div class="skill-cell"><div class="skill-name">Excel</div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div><div class="skill-level">Advanced</div></div>
+    <div class="skill-cell"><div class="skill-name">Power BI</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><div class="skill-level">Advanced</div></div>
+    <div class="skill-cell"><div class="skill-name">Financial analysis</div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div><div class="skill-level">Advanced</div></div>
+    <div class="skill-cell"><div class="skill-name">SQL</div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div><div class="skill-level">Working proficiency</div></div>
+    <div class="skill-cell"><div class="skill-name">Python</div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div><div class="skill-level">Working proficiency</div></div>
+    <div class="skill-cell"><div class="skill-name">BPMN</div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div><div class="skill-level">Proficient</div></div>
+    <div class="skill-cell"><div class="skill-name">Statistical analysis</div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div><div class="skill-level">Proficient</div></div>
+    <div class="skill-cell"><div class="skill-name">Celonis</div><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div><div class="skill-level">Project experience</div></div>
   </div>
 </section>
 
