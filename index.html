@@ -40,10 +40,10 @@ nav {
 .hero { padding: 5rem 2.5rem 4rem; position: relative; overflow: hidden; }
 .hero-eyebrow { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--hint); margin-bottom: 1.75rem; display: flex; align-items: center; gap: 10px; }
 .hero-eyebrow::after { content: ''; flex: 1; max-width: 40px; height: 0.5px; background: var(--border); }
-.hero-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; }
-.hero-text { flex: 1; }
-.hero-avatar { width: 200px; height: 200px; border-radius: 50%; border: 1.5px solid rgba(184,247,36,0.4); overflow: hidden; flex-shrink: 0; box-shadow: 0 0 40px rgba(184,247,36,0.08); }
-.hero-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: grayscale(20%); }
+.hero-author { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+.hero-avatar-sm { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(184,247,36,0.45); overflow: hidden; flex-shrink: 0; }
+.hero-avatar-sm img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.hero-author-name { font-size: 12px; color: var(--hint); letter-spacing: .03em; }
 .hero-name { font-size: clamp(52px, 8vw, 80px); font-weight: 600; line-height: .92; letter-spacing: -3px; margin-bottom: 2rem; }
 .hero-name .accent { color: var(--accent); }
 .hero-desc { font-size: 15px; color: var(--muted); max-width: 440px; line-height: 1.75; margin-bottom: 3rem; font-weight: 300; }
@@ -136,19 +136,18 @@ footer p { font-size: 11px; color: var(--hint); }
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"><canvas id="globe-canvas" width="640" height="640"></canvas></div>
-  <div class="hero-inner">
-  <div class="hero-text">
   <div class="hero-eyebrow">Business & Data Analyst</div>
   <h1 class="hero-name">Xiaoling<br><span class="accent">Li.</span></h1>
+  <div class="hero-author">
+    <div class="hero-avatar-sm"><img src="./avatar.jpg" alt="Xiaoling Li"></div>
+    <span class="hero-author-name">Xiaoling Li · Leuven, Belgium</span>
+  </div>
   <p class="hero-desc">I turn messy business data and processes into clear insights — using financial analysis, process mining, BI dashboards and predictive modelling.</p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-val">4</div><div class="stat-label">Projects</div></div>
     <div class="stat"><div class="stat-val">Power BI</div><div class="stat-label">SQL · Python</div></div>
     <div class="stat"><div class="stat-val">MSc</div><div class="stat-label">Cum laude</div></div>
     <div class="stat"><div class="stat-val">1M+</div><div class="stat-label">Public reach</div></div>
-  </div>
-  </div>
-  <div class="hero-avatar"><img src="avatar.jpg" alt="Xiaoling Li"></div>
   </div>
 </section>
 
