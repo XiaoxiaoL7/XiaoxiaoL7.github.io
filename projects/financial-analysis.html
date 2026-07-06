@@ -141,6 +141,7 @@ h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 600; letter-spacing: -1.5px
 const dark = { paper_bgcolor:'transparent', plot_bgcolor:'transparent', font:{family:'Inter,sans-serif',size:11,color:'rgba(255,255,255,0.4)'} };
 const grid = 'rgba(255,255,255,0.05)';
 const qtrs = ['Q1 21','Q2 21','Q3 21','Q4 21','Q1 22','Q2 22','Q3 22','Q4 22','Q1 23','Q2 23'];
+const qtrsIdx = qtrs.map((_,i)=>i);
 const revData = [[82,88,91,95,98,104,109,113,117,122],[48,51,53,56,58,62,65,68,71,74],[34,37,38,39,40,42,44,46,46,48]];
 const marData = [[29,31,33,35,36,38,39,41,42,43],[28,30,31,33,34,36,38,39,41,42],[31,33,34,35,37,38,40,41,42,43]];
 
@@ -148,10 +149,10 @@ function renderTrend(loc) {
   const rev = loc==='all' ? qtrs.map((_,i)=>revData[0][i]+revData[1][i]+revData[2][i]) : revData[parseInt(loc)];
   const mar = loc==='all' ? qtrs.map((_,i)=>Math.round((marData[0][i]+marData[1][i]+marData[2][i])/3)) : marData[parseInt(loc)];
   Plotly.react('chart-trend',[
-    {x:qtrs,y:rev,name:'Revenue',type:'bar',marker:{color:'rgba(184,247,36,0.15)',line:{color:'rgba(184,247,36,0.4)',width:1}},yaxis:'y'},
-    {x:qtrs,y:mar,name:'Gross margin %',type:'scatter',mode:'lines+markers',line:{color:'#b8f724',width:2},marker:{size:4,color:'#b8f724'},yaxis:'y2'}
+    {x:qtrsIdx,y:rev,name:'Revenue',type:'bar',marker:{color:'rgba(184,247,36,0.15)',line:{color:'rgba(184,247,36,0.4)',width:1}},yaxis:'y'},
+    {x:qtrsIdx,y:mar,name:'Gross margin %',type:'scatter',mode:'lines+markers',line:{color:'#b8f724',width:2},marker:{size:4,color:'#b8f724'},yaxis:'y2'}
   ],{...dark,height:300,margin:{t:10,r:55,b:40,l:50},legend:{x:0,y:1.05,orientation:'h',font:{size:11}},
-    xaxis:{gridcolor:grid,linecolor:'transparent'},
+    xaxis:{gridcolor:grid,linecolor:'transparent',tickvals:qtrsIdx,ticktext:qtrs,type:'linear'},
     yaxis:{gridcolor:grid,linecolor:'transparent'},
     yaxis2:{overlaying:'y',side:'right',gridcolor:'transparent',linecolor:'transparent',ticksuffix:'%',tickfont:{color:'#b8f724'}},
     bargap:0.3
